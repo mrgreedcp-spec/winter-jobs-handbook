@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>冬季包住工作手册</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: 单栏手册，左侧窄目录（宽屏）；用雪道难度标识（绿圆/蓝方/黑菱）标度假村分档 */
+:root{
+  --bg:#f5f8fa; --surface:#ffffff; --ink:#15212b; --muted:#56687a; --line:#d5dee6;
+  --accent:#1b5f8c; --accent-soft:#e3eef6; --green:#1d7a46; --blue:#1f5fbf; --black:#15212b;
+  --warn:#9a5b00; --warn-soft:#fbf1df; --code:#eef3f7;
+  --display:"Archivo","PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --body:-apple-system,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f161c; --surface:#16212a; --ink:#e6edf2; --muted:#9aaab8; --line:#2a3946;
+  --accent:#7cb8e4; --accent-soft:#1a2e3d; --green:#5cc489; --blue:#7aa7f0; --black:#e6edf2;
+  --warn:#f0b65a; --warn-soft:#2e2414; --code:#1b2833; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161c; --surface:#16212a; --ink:#e6edf2; --muted:#9aaab8; --line:#2a3946;
+  --accent:#7cb8e4; --accent-soft:#1a2e3d; --green:#5cc489; --blue:#7aa7f0; --black:#e6edf2;
+  --warn:#f0b65a; --warn-soft:#2e2414; --code:#1b2833; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 var(--body);margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:24px 64px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}nav.toc{display:none}}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;font-size:13px;line-height:1.5}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+nav.toc a{color:var(--muted);text-decoration:none}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent)}
+main{min-width:0}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:24px;font-weight:800;margin-top:56px;padding-top:16px;border-top:2px solid var(--ink)}
+h3{font-size:18px;font-weight:700;margin-top:28px}
+h4{font-size:15px;font-weight:700}
+p,li{max-width:68ch}
+a{color:var(--accent)}
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header.top{display:grid;gap:12px;padding-bottom:8px}
+.lede{font-size:17px;color:var(--muted);margin:0}
+.meta{font:13px/1.6 var(--mono);color:var(--muted)}
+.callout{background:var(--accent-soft);border-radius:6px;padding:14px 16px;margin:16px 0}
+.callout.warn{background:var(--warn-soft)}
+.callout p{margin:0}
+.tw{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-weight:700;font-size:13px;color:var(--muted);white-space:nowrap}
+td{min-width:7em}
+.num{font-variant-numeric:tabular-nums}
+.steps{list-style:none;padding:0;margin:14px 0;display:grid;gap:10px;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:8px}
+.steps>li::before{content:counter(s);font:700 14px/1.9 var(--mono);color:var(--accent)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0;font-size:14px}
+.flow span{border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:3px 9px}
+.flow span.her{border-color:var(--green);color:var(--green);font-weight:600}
+.flow i{color:var(--muted);font-style:normal}
+.sign{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-1px}
+.sign.g{background:var(--green);border-radius:50%}
+.sign.b{background:var(--blue)}
+.sign.k{background:var(--black);transform:rotate(45deg) scale(.85)}
+.prompt{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:14px;margin:12px 0;display:grid;gap:8px}
+.prompt-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.notes{margin:0;padding-left:1.2em;font-size:14px;color:var(--muted)}
+pre{font:13px/1.6 var(--mono);background:var(--code);border-radius:4px;padding:12px;margin:0;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+button.copy{font:600 13px var(--body);background:var(--accent);color:var(--bg);border:0;border-radius:4px;padding:6px 14px;cursor:pointer;flex:none}
+button.copy:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details{border-bottom:1px solid var(--line);padding:8px 0}
+summary{cursor:pointer;font-weight:700}
+ol.qs{display:grid;gap:8px;padding-left:1.6em}
+.q{display:block}
+.tip{display:block;font-size:14px;color:var(--muted)}
+.tag{font:600 11px/1 var(--mono);padding:3px 6px;border-radius:3px;background:var(--warn-soft);color:var(--warn);white-space:nowrap}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.cols>div{min-width:0}
+code{font:13px var(--mono);background:var(--code);padding:1px 4px;border-radius:3px}
+nav.toc li.pt{font:600 11px/1.4 var(--mono);letter-spacing:.06em;color:var(--ink);margin-top:10px}
+.part{margin-top:72px;padding:20px 0 4px;border-top:6px double var(--ink);display:grid;gap:4px}
+.part strong{font:800 clamp(24px,4vw,32px)/1.2 var(--display)}
+.part span:last-child{color:var(--muted)}
+.part+section>h2{border-top:0;margin-top:20px}
+.ck-jump{display:inline-block;font-weight:700;text-decoration:none;border:1.5px solid var(--accent);border-radius:6px;padding:8px 14px}
+.ck-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;background:var(--bg);display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.ck-total{display:flex;gap:10px;align-items:center;flex:1;min-width:0;font:600 14px var(--mono)}
+.ck-track{flex:1;max-width:240px;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+#ck-fill{display:block;height:100%;width:0;background:var(--green);transition:width .2s}
+.ck-reset{font:600 13px var(--body);background:none;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:6px 10px;cursor:pointer}
+.ck-status{font:13px/1.5 var(--mono);color:var(--muted);margin:6px 0 0}
+.ck-status.ok{color:var(--green)}
+.ck-status.warn{color:var(--warn)}
+.ck-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.ck-btn{font:600 14px var(--body);background:var(--accent);color:var(--bg);border:1.5px solid var(--accent);border-radius:6px;padding:9px 14px;min-height:44px;cursor:pointer}
+.ck-btn.ghost{background:none;color:var(--accent)}
+.ck-group{margin-top:8px}
+.ck-group h3{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.ck-g{font:600 12px var(--mono);color:var(--muted)}
+.ck-g.done{color:var(--green)}
+.ck-group label{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;min-height:44px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer;max-width:68ch;-webkit-tap-highlight-color:transparent}
+.ck-group input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.ck-group input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.ck-group input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){#ck-fill{transition:none}}
+footer{margin-top:56px;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="目录"><ol>
+<li class="pt">上篇 · 找到带宿舍的工作</li>
+<li><a href="#start">0 · 这周先做什么</a></li>
+<li><a href="#timeline">1 · 时间线</a></li>
+<li><a href="#overview">2 · 五类岗位总览</a></li>
+<li><a href="#where">3 · 滑雪度假村</a></li>
+<li><a href="#others">4 · 酒店、小屋、极光、工作营</a></li>
+<li><a href="#province">5 · 省份与医保</a></li>
+<li><a href="#apply">6 · 求职 workflow</a></li>
+<li><a href="#interview">7 · 面试 workflow</a></li>
+<li><a href="#together">8 · 两个人怎么配合</a></li>
+<li><a href="#tools">9 · Claude 与 Codex 分工</a></li>
+<li><a href="#prompts">10 · 提示词</a></li>
+<li class="pt">下篇 · 过好整个雪季</li>
+<li><a href="#checklist">✓ 到岗清单（可勾选）</a></li>
+<li><a href="#arrive">11 · 抵达与第一周</a></li>
+<li><a href="#dorm">12 · 宿舍生活</a></li>
+<li><a href="#safety">13 · 装备、御寒与安全</a></li>
+<li><a href="#money">14 · 钱</a></li>
+<li><a href="#tax">15 · 工资单与报税</a></li>
+<li><a href="#mind">16 · 心理</a></li>
+<li><a href="#end">17 · 季末与下一步</a></li>
+<li class="pt">附录</li>
+<li><a href="#facts">18 · 易变事实核实表</a></li>
+<li><a href="#folder">19 · 文件夹地图</a></li>
+</ol></nav>
+
+<main>
+<header class="top">
+<div class="eyebrow">2026–27 冬季 · 五类带住宿的临时工作</div>
+<h1>冬季包住工作手册</h1>
+<p class="lede">她 10 月 21 日登陆，想这个冬天找一份包住的临时工作。上篇讲找工作：五类岗位、怎么投、怎么面试、两个人怎么分工。下篇讲拿到 offer 后怎么过好整个雪季：到岗、宿舍、安全、钱、报税、心理和收尾。</p>
+<div class="meta">版本 2026-10-07（v2：加入四类岗位和下篇） · 共享文件夹 ~/求职_加拿大_夫妻/ · 在线版 <a href="https://claude.ai/artifact/12ymgR45LJpftzszkhLZSW">claude.ai/artifact/12ymgR45LJpftzszkhLZSW</a> · 标 <span class="tag">待核实</span> 的内容执行前要再查</div>
+<p><a class="ck-jump" href="#checklist">✓ 拿到 offer 后：打开到岗清单</a></p>
+</header>
+
+<div class="part" id="part1"><span class="eyebrow">上篇</span><strong>找到带宿舍的冬季工作</strong><span>五类岗位、投递、面试、分工</span></div>
+
+<section id="start">
+<h2>0 · 这周先做什么</h2>
+<div class="callout warn"><p><strong>时间很紧。</strong>大度假村和景区酒店冬季主招聘在夏天，10 月是补缺期；工作营全年招人。目标是 <strong>10 月内投出第一批</strong>，11 月中前拿到 offer，12 月初到岗。</p></div>
+<ol class="steps">
+<li><div><strong>她（今天起，手机）</strong>：用提示词 ① 口述 3–5 段真实经历（带孩子、接待、合住、犯错补救各一段最好），发给丈夫。</div></li>
+<li><div><strong>他（Claude）</strong>：跑提示词「找岗位 + 核实」，把第 3 节的度假村逐家核一遍；再跑提示词 ⑦，核第 4 节的酒店和工作营。都填进追踪表。</div></li>
+<li><div><strong>他（Codex）</strong>：把口述贴进事实库，生成主简历和 4 个变体；Claude 交叉审一遍。</div></li>
+<li><div><strong>两个人</strong>：每晚 10 分钟站会，她对当天 ≤5 个岗位说「投 / 不投 / 问」。</div></li>
+<li><div><strong>她（每天 15 分钟）</strong>：用提示词 ② 做一轮模拟面试。度假村常在投递后几天内约视频面试，要提前练。</div></li>
+</ol>
+</section>
+
+<section id="timeline">
+<h2>1 · 时间线</h2>
+<div class="tw"><table>
+<thead><tr><th>时间</th><th>阶段</th><th>重点</th></tr></thead>
+<tbody>
+<tr><td class="num">10-04 → 10-20</td><td>国内远程投递</td><td>事实库、简历、第一批申请；视频面试（注意时差）。申请表写可到岗日期 = 登陆后约 1–2 周。</td></tr>
+<tr><td class="num">10-21 → 10-31</td><td>登陆 + 行政冲刺</td><td>SIN（温哥华机场入境时能否当场办理 <span class="tag">待核实</span>，否则去 Service Canada）、银行、手机号；继续投、继续面。</td></tr>
+<tr><td class="num">11-01 → 11-20</td><td>锁定 offer</td><td>比较宿舍、工时、地点；确认入住日期；考急救证等岗位要求的证书。</td></tr>
+<tr><td class="num">11 月底 → 12 月初</td><td>到岗</td><td>多数度假村 11 月底–12 月中开季；季末通常 4 月中下旬。极光旅游约 11 月下旬开季。到岗后看下篇。</td></tr>
+<tr><td class="num">全年</td><td>工作营随时招</td><td>度假村没拿到 offer，12 月起转投工作营（先考急救和 WHMIS）。</td></tr>
+<tr><td class="num">次年 3 月</td><td>下一步</td><td>问度假村有无夏季/全年岗位，同时启动密西沙加备选轨道。</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="overview">
+<h2>2 · 五类岗位总览</h2>
+<p>五类都提供住处。差别在钱、偏远程度和生活方式。<strong>建议 ①② 为主力，⑤ 作为存钱型备选，③④ 看到合适的再投。</strong></p>
+<div class="tw"><table>
+<thead><tr><th>类型</th><th>住宿</th><th>时薪（大概）</th><th>节奏</th><th>偏远</th><th>适合她的岗位</th><th>档</th></tr></thead>
+<tbody>
+<tr><td><a href="#where">① 滑雪度假村</a></td><td>员工宿舍，工资里扣</td><td class="num">AB $15+ / BC $18.25+</td><td>整季，每周约 5 天</td><td>小镇</td><td>Kids Club、前台、零售、客房、餐饮</td><td><span class="sign g"></span></td></tr>
+<tr><td><a href="#hotel">② 国家公园景区酒店</a></td><td>员工宿舍，工资里扣（约 $15/天起）</td><td class="num">约 $19.50–20（Lake Louise 例）</td><td>整季或全年</td><td>Banff / Jasper 小镇</td><td>前台、客房、餐饮、礼宾</td><td><span class="sign g"></span></td></tr>
+<tr><td><a href="#heli">③ 直升机 / 雪猫滑雪小屋</a></td><td>上班期间住小屋；部分休息期要自己住镇上</td><td class="num">$22+/h 或 $240+/天，小费多</td><td>驻守数周</td><td>很偏</td><td>客房、厨房帮工、服务员</td><td><span class="sign b"></span></td></tr>
+<tr><td><a href="#aurora">④ 极光旅游</a></td><td>少量员工宿舍，要问</td><td class="num">$18 起；导游更高</td><td>夜班为主</td><td>北方城市</td><td>普通话讲解、前台、服务员</td><td><span class="sign b"></span></td></tr>
+<tr><td><a href="#camp">⑤ 偏远工作营</a></td><td>包吃包住，单人或合住</td><td class="num">$19.50–22</td><td>14/14、20/10 等轮班，每天 10–12 h</td><td>最偏，飞进飞出</td><td>Camp Attendant、客房、厨房帮工</td><td><span class="sign b"></span></td></tr>
+</tbody></table></div>
+<p>分档沿用雪道标识：<span class="sign g"></span>先投，<span class="sign b"></span>可投但先问清，<span class="sign k"></span>不建议。数据来源和核实日见各小节和第 18 节。</p>
+</section>
+
+
+<section id="where">
+<h2>3 · 滑雪度假村分档</h2>
+<p>借用雪道难度标识来分档：<span class="sign g"></span>先投，<span class="sign b"></span>可投但先问清宿舍，<span class="sign k"></span>不建议。数据为 2026-10-04 官网核查结果，宿舍价格只写官网公布的数字。</p>
+<div class="tw"><table>
+<thead><tr><th>档</th><th>度假村</th><th>省</th><th>招聘状态</th><th>员工宿舍</th><th>员工季节</th></tr></thead>
+<tbody>
+<tr><td><span class="sign g"></span></td><td><a href="https://www.skilouise.com/contact-us/careers-employment/">Lake Louise</a></td><td>AB</td><td>冬季陆续发帖</td><td>有；入门岗合住；<strong class="num">$13–23/人/晚</strong>，双周从工资扣，含水电</td><td class="num">入职 10/24–12/15，结束 4/15–5/10</td></tr>
+<tr><td><span class="sign g"></span></td><td><a href="https://www.bigwhite.com/employment-centre">Big White</a></td><td>BC</td><td>在招</td><td>有；按部门分床；每卧 2 人；<strong class="num">$600–900/月</strong></td><td class="num">11 月底–12 月中入职，4 月初–中结束</td></tr>
+<tr><td><span class="sign g"></span></td><td><a href="https://www.skibanff.com/careers/">Banff Sunshine Village</a></td><td>AB</td><td>官网写 Now Hiring 26/27</td><td>只给部分岗位，面试时问；价格未公布</td><td class="num">11 月中–5 月下旬</td></tr>
+<tr><td><span class="sign g"></span></td><td><a href="https://jobs.vailresortscareers.com/whistler/go/Whistler-Blackcomb-Jobs/3521600/">Whistler Blackcomb</a></td><td>BC</td><td>在招，岗位最多</td><td>有，多为合住，竞争最激烈；价格未公布</td><td>通常 11 月下旬–4/5 月 <span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://banffnorquay.com/work-with-us/">Mt Norquay</a></td><td>AB</td><td>在招（经 Indeed 投）</td><td>名额有限</td><td><span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://www.skimarmot.com/careers/">Marmot Basin（Jasper）</a></td><td>AB</td><td>有在招岗位</td><td>有多种；2024 山火后镇上住房紧</td><td><span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://skifernie.com/careers/">Fernie</a></td><td>BC</td><td>写明可询问 26/27</td><td>有限，邮件 HR 询问；有托儿中心岗位</td><td><span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://www.sunpeaksresort.com/employment">Sun Peaks</a></td><td>BC</td><td><span class="tag">待核实</span></td><td>有，仅限本公司员工；官方建议 10 月前找房，她偏晚</td><td>11 月–4 月</td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://www.revelstokemountainresort.com/employment/">Revelstoke</a></td><td>BC</td><td><span class="tag">待核实</span></td><td>有，名额有限</td><td>11 月–4 月</td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://kickinghorseresort.com/careers/">Kicking Horse</a></td><td>BC</td><td>岗位在 RCR 门户</td><td>Golden 镇 2 栋合住屋，每间 2–3 人，有班车</td><td>12 月初–4 月中</td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://www.bluemountain.ca/employment/careers-and-jobs">Blue Mountain</a></td><td>ON</td><td>招聘会进行中；Collingwood 有常设招聘点</td><td>有限，需信用卡押金；官方建议带 ≥$2,000 积蓄</td><td><span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign b"></span></td><td>Kimberley / Panorama</td><td>BC</td><td>门户可投</td><td>官网未提宿舍 <span class="tag">待核实</span></td><td><span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign k"></span></td><td>Horseshoe</td><td>ON</td><td>门户可投</td><td>招聘页未提宿舍</td><td>—</td></tr>
+<tr><td><span class="sign k"></span></td><td>Mont-Tremblant</td><td>QC</td><td>在招</td><td>无员工宿舍；岗位以法语为主</td><td>—</td></tr>
+</tbody></table></div>
+<ul>
+<li>Lake Louise 明确要求待满整季，不招只干一两个月的人。几乎所有度假村都看这一点。</li>
+<li>10 月 21 日之后能赶上的、已确认日期的度假村招聘会一个都没查到。Whistler 商会秋季招聘会 2025 年在 10/30 举办，2026 年日期 <span class="tag">待核实</span>。</li>
+<li>托儿岗：Alberta 要求入职 6 个月内拿到 ECE 认证，之前不能单独带孩子；Level 1 可通过政府免费在线的 Orientation Course 完成。BC 常见要求是 20 小时儿童发展课程 + 急救证（来自第三方汇总，<span class="tag">待核实</span>）。<strong>落地第一周就考 Standard First Aid + CPR</strong>，几乎所有托儿岗都要。</li>
+</ul>
+<p>完整核查记录（每家的入口、宿舍楼名、联系邮箱、来源链接）在 <code>10_岗位追踪/岗位池_滑雪度假村.md</code>。</p>
+</section>
+
+<section id="others">
+<h2>4 · 另外四类：酒店、小屋、极光、工作营</h2>
+<p>每类一张表。数据是 2026-10-07 汇总的官网和招聘广告。<strong>部分页面打不开，只来自搜索摘要，这些都标了 <span class="tag">待核实</span></strong>。投之前在雇主官网重新确认。</p>
+
+<h3 id="hotel">4a · 国家公园景区酒店（Banff / Lake Louise / Jasper）</h3>
+<p>岗位多、全年都招、员工宿舍便宜，和度假村一样适合新人。<strong>她的前台面试准备可以直接用上。</strong></p>
+<div class="tw"><table>
+<thead><tr><th>档</th><th>雇主</th><th>岗位与薪资</th><th>员工宿舍和餐</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td><span class="sign g"></span></td><td><a href="https://careers.accor.com/global/en/job/room-attendant-in-fairmont-chateau-lake-louise-lake-louise-canada-jid-82387">Fairmont Chateau Lake Louise</a></td><td>Room Attendant、Host、Server、Concierge；<span class="num">$19.48–20.06/h</span></td><td>全职有现场补贴宿舍；每班 1 餐免费，加餐 $8</td><td>有帖写 2026-02 入职 <span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign g"></span></td><td>Fairmont Banff Springs（入口 <a href="https://careers.accor.com">careers.accor.com</a>）</td><td>客房、预订、前台、咖啡师、扫雪</td><td>宿舍约 $15/天，含水电和 Wi-Fi；每班 1 餐（2022 年媒体数据）<span class="tag">待核实</span></td><td>查到的帖多是春夏季，冬季岗位要逐条看</td></tr>
+<tr><td><span class="sign g"></span></td><td><a href="https://www.jasperparklodgejobs.com/">Fairmont Jasper Park Lodge</a></td><td>酒店各部门</td><td>官网写补贴现场宿舍和餐，价格未公布</td><td>邮箱 jpl.careers@fairmont.com；Jasper 2024 山火后镇上住房紧</td></tr>
+<tr><td><span class="sign g"></span></td><td><a href="https://canada-pursuitcollection.icims.com">Pursuit（Banff Jasper Collection）</a></td><td>厨房、Guest Services、客房、服务员</td><td>$15/天起，从工资扣，多为 2–5 人宿舍；Brewster Mountain Lodge $16–49/天（<a href="https://jobresourcecentre.com/staff-housing-guide/">Job Resource Centre</a>）</td><td>查到的多是夏季清单，冬季岗位 <span class="tag">待核实</span></td></tr>
+</tbody></table></div>
+<ul>
+<li><strong>Banff 居住资格</strong>：在国家公园里住，主要工作必须在园内（或是这类人的配偶、受抚养人）。没有园内工作就很难在 Banff 镇合法租房，<strong>所以员工宿舍几乎是必需品</strong>（<a href="https://parks.canada.ca/pn-np/ab/banff/info/serviceimmobilier-realty/resident-residency">Parks Canada</a>）。季节工是否算合格，可发邮件问 banffrealty-immobiliers@pc.gc.ca。</li>
+<li>Banff 秋季招聘会 2026 年日期没查到。可以打 Banff Job Resource Centre 电话 403-760-3311 问（<a href="https://jobresourcecentre.com/job-fairs/">jobresourcecentre.com</a>）。</li>
+<li>Fairmont 岗位都在 Accor 招聘站，按酒店名和 "winter" / "seasonal" 搜。</li>
+</ul>
+
+<h3 id="heli">4b · 直升机 / 雪猫滑雪小屋</h3>
+<p>客人是高端滑雪客，小费多、团队小、什么活都要帮着干。<strong>主招聘在 8–10 月，现在是最后窗口</strong>，入门岗以客房、厨房帮工、服务员为主。</p>
+<div class="tw"><table>
+<thead><tr><th>档</th><th>雇主</th><th>岗位与薪资</th><th>住宿和轮班</th><th>季节 / 状态</th></tr></thead>
+<tbody>
+<tr><td><span class="sign b"></span></td><td><a href="https://www.wiegele.com/employment/">Mike Wiegele</a>（Blue River, BC）</td><td>有 2026-27 冬季帖，如 Baker / Sandwich Maker <span class="num">$22.60–23.85/h</span></td><td>补贴宿舍（单人或合住）+ 员工餐计划，价格未公布</td><td>只走 <a href="https://alterra.wd1.myworkdayjobs.com/MikeWiegeleHelicopterSkiing">Workday 门户</a>投递，不收邮件</td></tr>
+<tr><td><span class="sign b"></span></td><td><a href="https://www.cmhheli.com/careers">CMH Heli-Skiing</a>（BC 多处小屋）</td><td>厨师、按摩师等，入门岗少</td><td>上班期间免费住宿 + 员工餐；2 周上、1 周休 <span class="tag">待核实</span></td><td>11 月中–4 月底；大部分岗位 10/31 前招满</td></tr>
+<tr><td><span class="sign b"></span></td><td>Baldface（Nelson, BC）</td><td>Housekeeper <span class="num">$240/天</span>、Bartender $265/天（<a href="https://www.careerbeacon.com/en/job-9/3652384/baldface/lodge-housekeeper">招聘帖</a>）</td><td>7 天上、7 天休；休息期住 Nelson，要自己找房</td><td>食宿条款和季节 <span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign k"></span></td><td><a href="https://careers.islandlakelodge.com">Island Lake Lodge</a>（Fernie, BC）</td><td>Server、Prep Cook 等在招</td><td>员工餐免费、有班车上下山；<strong>没查到员工宿舍</strong></td><td>12 月–4 月初；要求已在加拿大境内</td></tr>
+</tbody></table></div>
+<ul>
+<li>没有宿舍、或休息期要自己住镇上的，实际成本更高，先算清楚。</li>
+<li>面试会问「能不能接受长时间待在偏远小屋」，提前准备真实例子（题库第 6 题）。</li>
+</ul>
+
+<h3 id="aurora">4c · 极光旅游（耶洛奈夫 / 怀特霍斯）</h3>
+<p>冬季是旺季，客人里中日韩游客多，<strong>会普通话是实打实的优势</strong>。缺点：导游岗多要驾照，员工宿舍少且要逐家问。</p>
+<div class="tw"><table>
+<thead><tr><th>档</th><th>雇主</th><th>地点</th><th>岗位与薪资</th><th>住宿</th><th>季节</th></tr></thead>
+<tbody>
+<tr><td><span class="sign b"></span></td><td><a href="https://auroravillage.com/?p=113">Aurora Village</a></td><td>耶洛奈夫 NWT</td><td>Tour Guide（含普通话导游）起薪约 $18/h；另有大巴司机、夜班营地员</td><td>有员工宿舍；员工评价说贵、管理乱，问清价格和条件</td><td class="num">约 11/20–4/14</td></tr>
+<tr><td><span class="sign b"></span></td><td>Northern Lights Resort &amp; Spa</td><td>怀特霍斯 YT</td><td>服务员 $18/h；厨房帮工/客房；导游 $20–30/h + 小费（要 Class 4 驾照）</td><td>视个案提供，共用厨房和卫生间</td><td><span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign k"></span></td><td>Northern Tales</td><td>怀特霍斯 YT</td><td>Aurora Viewing Guide $28–35/h（含小费），要 Class 4 驾照 + 急救</td><td>视个案安排</td><td class="num">8/15–次年 4/15（广告已下架）</td></tr>
+<tr><td><span class="sign k"></span></td><td>North Star Adventures</td><td>耶洛奈夫 NWT</td><td>未查到招聘</td><td>—</td><td class="num">12/1–4/20</td></tr>
+</tbody></table></div>
+<ul>
+<li>Aurora Village 没有正式招聘页，用官网「Work with us」表单或发简历到 <code>hr@auroravillage.com</code>。</li>
+<li>没有加拿大驾照，只投前台、服务员、客房、厨房帮工、普通话讲解助理。</li>
+<li>夜里带团在 −30 °C 等极光，保暖装备要比度假村更厚。</li>
+</ul>
+
+<h3 id="camp">4d · 偏远工作营（矿区 / 能源 / 水电工地）</h3>
+<p>包吃包住、工资高于度假村、工时长，是<strong>存钱最快</strong>的一类。代价是偏远、男性多、规矩严、休息期没有住处。</p>
+<div class="tw"><table>
+<thead><tr><th>档</th><th>雇主</th><th>例子（地点）</th><th>时薪</th><th>轮班</th><th>要求</th></tr></thead>
+<tbody>
+<tr><td><span class="sign g"></span></td><td><a href="https://careers.compass-canada.com">ESS（Compass）</a></td><td>Camp Attendant（ON / MB / SK / BC 多地）</td><td class="num">$19.50–20</td><td class="num">14/14、20/10、21/7</td><td>急救、WHMIS、药检、无犯罪记录；部分要正式驾照</td></tr>
+<tr><td><span class="sign g"></span></td><td><a href="https://civeo.com/careers/canada/">Civeo</a></td><td>Camp Attendant（Faro, YT）</td><td class="num">$20.25</td><td class="num">14/14 或 20/10，每天 10 小时</td><td>药检；能搬 50 lb；从 Edmonton / Calgary / Vancouver 出发报销</td></tr>
+<tr><td><span class="sign b"></span></td><td>Sodexo</td><td>Housekeeping（Mt Milligan 矿，BC）</td><td class="num">$22</td><td>两周轮换，每天 10 小时，包机票</td><td>官方入口和证书要求 <span class="tag">待核实</span></td></tr>
+<tr><td><span class="sign k"></span></td><td><a href="https://aramarkcareers.com">Aramark</a></td><td>Room Attendant（Manic-3，QC）</td><td class="num">$21.02（超 40 h 1.5 倍）</td><td class="num">14/14，每周 70 小时</td><td>单人房、包吃住；在魁北克，可能要法语</td></tr>
+</tbody></table></div>
+<p class="meta">以上多来自 2026-09 至 10 月的招聘广告（Indeed、雇主招聘页、搜索摘要），2026-10-07 汇总；部分原页已下架，投之前在雇主官网重新确认。</p>
+<ul>
+<li><strong>药检和酒检是硬门槛</strong>。在加拿大大麻合法，但营地岗位一般零容忍。</li>
+<li>入职前通常要先考 <strong>Standard First Aid + CPR</strong> 和 <strong>WHMIS</strong>（WHMIS 在线就能考）。</li>
+<li><strong>休息期没有住处</strong>。轮完班要飞回出发城市，自己找地方住。适合把密西沙加当「家」，或休息期住朋友家。</li>
+<li>每天 10–12 小时、连续两到三周，体力消耗大。第一轮结束再判断适不适合。</li>
+<li>营地手机信号和网络常常有限，到岗前问清 Wi-Fi 和电话。</li>
+</ul>
+<p>逐家的入口、来源和未核实项记在 <code>10_岗位追踪/岗位池_其他四类.md</code>。</p>
+</section>
+
+
+<section id="province">
+<h2>5 · 省份与医保取舍</h2>
+<p>去外省过冬，等于这段时间住在那个省。医保跟着居住省走，差别很大。工作营和极光岗位可能在 NWT、Yukon、SK、MB，规则见表下方。</p>
+<div class="tw"><table>
+<thead><tr><th>冬天在哪</th><th>医保规则（官网）</th><th>对她意味着什么</th></tr></thead>
+<tbody>
+<tr><td>Alberta<br>Lake Louise / Sunshine / Norquay / Marmot</td><td>从加拿大境外搬来（PR 或工签）：3 个月内申请，<strong>从确立居住当天起覆盖</strong>。从外省搬来：确立居住后第三个月的 1 号起（2026-10-07 复核）</td><td>可能最有利。她先在温哥华入境，AB 会按「境外来」还是「外省来」算，要打电话问 AHCIP <span class="tag">待核实</span></td></tr>
+<tr><td>BC<br>Big White / Whistler / Fernie 等</td><td>等待期 = 成为居民当月剩余天数 + 2 个月；页面只给加拿大军人豁免，没有新 PR 豁免（页面更新于 2026-06-04）</td><td>按 10 月下旬成为 BC 居民推算，约 2027-01-01 起覆盖，之前要买私人保险。网上说「PR 无等待期」的博客与官网冲突，以官网为准</td></tr>
+<tr><td>Ontario<br>Blue Mountain</td><td>OHIP 无等待期，但开始居住后的前 183 天里至少 153 天要在安省</td><td>不动原来的密西沙加计划，医保最简单。若先拿 OHIP 再去外省过冬，基本会不满足 153/183</td></tr>
+</tbody></table></div>
+<ul>
+<li><strong>NWT（耶洛奈夫）</strong>：从外省搬来，第三个月的 1 号起覆盖，之前由原省继续承保；从境外来的 PR 官网没写等待期，要问 Health Services Administration Office。在当地工作不满 12 个月的不应申请（<a href="https://www.hss.gov.nt.ca/en/services/nwt-health-care-plan/general-information-residents">hss.gov.nt.ca</a>）。</li>
+<li><strong>Yukon（怀特霍斯）</strong>：官方写新居民「可能」有 3 个月等待期 <span class="tag">待核实</span>（<a href="https://yukon.ca/en/health-and-wellness/care-services/apply-health-care-card">yukon.ca</a>）。</li>
+<li><strong>工作营</strong>：人在营地，但「居住省」通常看你的家在哪。休息期回安省住的，按安省算 <span class="tag">待核实</span>。</li>
+</ul>
+<div class="callout"><p><strong>建议顺序</strong>：AB 和 BC 一起投，安省 Blue Mountain 作保底。不论去哪，登陆后到医保生效前都买私人保险。最后由她按 offer、宿舍和医保一起决定。</p></div>
+</section>
+
+<section id="apply">
+<h2>6 · 求职 workflow</h2>
+<div class="flow"><span>发现</span><i>→</i><span class="her">待她确认</span><i>→</i><span>材料中</span><i>→</i><span class="her">她看过</span><i>→</i><span class="her">已投递</span><i>→</i><span>面试</span><i>→</i><span>复盘/关闭</span></div>
+<p>绿色三步只有她能推动。她说「投」，材料才开始写；她看过并说「可以投」，才提交；提交由她本人点，或她在旁边确认后再点。</p>
+<ol class="steps">
+<li><div><strong>发现</strong>（Claude）：Indeed 搜索 + 各度假村官网招聘页。只收有员工宿舍、季节覆盖 12–3 月、不要求法语和滑雪证书的岗位。每条写进追踪表，宿舍、费用、核实日期查不到就标待核实。</div></li>
+<li><div><strong>待她确认</strong>（Codex 导出 → 她）：每天最多 5 条，中文、手机好读，写清住什么、干什么、她缺什么。</div></li>
+<li><div><strong>材料</strong>（Claude 写 → Codex 审）：简历从 4 个变体里选一个，求职信按四段骨架写，≤250 词。事实只来自事实库。</div></li>
+<li><div><strong>她看过</strong>：她在手机上读一遍，重点看有没有写错她的经历。</div></li>
+<li><div><strong>提交</strong>：登录、验证码、条款勾选都由她本人操作。投出去的版本冻结复制到 <code>已发出/</code>。</div></li>
+<li><div><strong>跟进</strong>：7 天没回音，发一封三句话的跟进邮件；度假村 HR 邮箱通常在招聘页底部。</div></li>
+</ol>
+<h3>先投哪类岗位</h3>
+<div class="tw"><table>
+<thead><tr><th>岗位类型</th><th>为什么适合她</th><th>常见要求</th></tr></thead>
+<tbody>
+<tr><td>Guest Services / Front Desk / Ticket Sales</td><td>接待家长和学生的经验、双语</td><td>客服经验、能处理投诉、收银</td></tr>
+<tr><td>Daycare / Kids Club / Snow School 前台</td><td>心理师范背景最对口</td><td>带孩子经验；部分省份要求托儿证书或急救证 <span class="tag">待核实</span></td></tr>
+<tr><td>Retail / Rentals</td><td>门槛低、培训完整</td><td>站立工作、学习快</td></tr>
+<tr><td>Housekeeping / Food &amp; Beverage</td><td>招人最多、最容易拿到宿舍</td><td>体力、早班、可靠</td></tr>
+</tbody></table></div>
+<p>Ski/snowboard instructor、ski patrol 需要 CSIA/CASI 等证书，这个冬天不作为目标。</p>
+</section>
+
+<section id="interview">
+<h2>7 · 面试 workflow</h2>
+<div class="flow"><span class="her">口述经历</span><i>→</i><span>事实库</span><i>→</i><span>STAR 故事库</span><i>→</i><span class="her">每天模拟 5 题</span><i>→</i><span>重要面试前深度准备</span><i>→</i><span class="her">24 小时内复盘</span></div>
+<p>度假村面试一般是 15–30 分钟视频或电话，节奏快。面试官主要看三件事：<strong>能不能待满整季、能不能适应宿舍和山里生活、对客人有没有热情</strong>。</p>
+<div class="cols">
+<div><h3>每天（她，手机）</h3><ul><li>提示词 ②：5 题模拟，每题有中文点评和英文改写。</li><li>卡住的题记下来，晚上站会说。</li></ul></div>
+<div><h3>重要面试前（他，Claude）</h3><ul><li>查这家度假村的情况，给 5 条她能自然提到的事实。</li><li>挑 10 题，每题配一个 STAR 故事和 60 秒答案要点。</li></ul></div>
+<div><h3>面完（她口述 → AI）</h3><ul><li>提示词 ④：问题表、最弱一题改进、感谢信草稿。</li><li>新题补进题库。</li></ul></div>
+</div>
+<div class="callout"><p>视频面试注意时差：Alberta 是山地时间（比国内晚 14 小时，冬令时 15 小时），BC 是太平洋时间（晚 15/16 小时），安省是东部时间（晚 12/13 小时）。加拿大 2026-11-01 结束夏令时。</p></div>
+<h3>度假村通用题库（28 题）</h3>
+<details><summary>## A. 动机与可用性（必问）</summary><ol class="qs"><li><span class="q">Tell me about yourself.</span><span class="tip">30 秒版：背景一句 + 最对口经历一句 + 为什么来山里一句。</span></li><li><span class="q">Why do you want to work at a ski resort / at [Resort]?</span><span class="tip">说一个具体原因（地方、社区、学习机会），别只说爱滑雪。</span></li><li><span class="q">Have you skied or snowboarded before?</span><span class="tip">照实说；没滑过就说「愿意学，员工课程/季卡是吸引我的原因之一」。</span></li><li><span class="q">Can you commit to the full season, until [April date]?</span><span class="tip">明确说能；有回国计划要提前讲清楚。</span></li><li><span class="q">When can you start?</span><span class="tip">结合 10-21 登陆 + SIN/银行办完的日期。</span></li><li><span class="q">Are you legally entitled to work in Canada?</span><span class="tip">&quot;Yes, I&#x27;m a Permanent Resident.&quot;</span></li><li><span class="q">What shifts can you work? Weekends, holidays, early mornings?</span><span class="tip">圣诞–新年、春假最忙，表示可以。</span></li><li><span class="q">What are your plans after the season?</span><span class="tip">诚实但不显得一只脚已经在外面。</span></li></ol></details>
+<details><summary>## B. 宿舍与山里生活</summary><ol class="qs"><li><span class="q">Are you comfortable living in shared staff accommodation?</span><span class="tip">讲一次集体生活/合住的经历。</span></li><li><span class="q">How would you handle a conflict with a roommate?</span><span class="tip">先私下沟通、定规则、必要时找宿舍管理员。</span></li><li><span class="q">The town is small and remote, and winters are cold and dark. How will you cope?</span><span class="tip">具体：运动、社交、规律作息、视频联系家人。</span></li><li><span class="q">How do you look after your own wellbeing during a busy, physical season?</span><span class="tip">心理背景可以自然用上，但别说教。</span></li></ol></details>
+<details><summary>## C. 客户服务（前台/票务/零售/餐饮都会问）</summary><ol class="qs"><li><span class="q">What does great guest service mean to you?</span><span class="tip">一个具体动作 + 一个例子。</span></li><li><span class="q">Tell me about a time you dealt with an upset customer/parent.</span><span class="tip">STAR；先倾听、道歉、给方案、跟进。</span></li><li><span class="q">A guest is angry because the lifts are closed due to wind. What do you do?</span><span class="tip">共情 + 解释安全原因 + 能给的替代（退券政策按度假村规定、室内活动）+ 不超权限承诺。</span></li><li><span class="q">A guest asks something you don&#x27;t know.</span><span class="tip">不瞎答，说会去问，然后真的去问并回来告诉他。</span></li><li><span class="q">How do you handle a long line and many people at once?</span><span class="tip">先打招呼让人知道被看到，分轻重缓急，叫同事支援。</span></li><li><span class="q">Tell me about a mistake you made at work and how you fixed it.</span></li></ol></details>
+<details><summary>## D. 团队与可靠性</summary><ol class="qs"><li><span class="q">Describe a time you worked in a team with people from different backgrounds.</span></li><li><span class="q">Tell me about a time you had to learn something new quickly.</span></li><li><span class="q">What would your previous manager say about you?</span><span class="tip">用推荐人会说的真实评价。</span></li><li><span class="q">How do you stay positive doing repetitive tasks?</span><span class="tip">客房、洗碗、租赁岗常问。</span></li></ol></details>
+<details><summary>## E. 安全与情景</summary><ol class="qs"><li><span class="q">You notice a safety hazard (ice on stairs, a child alone). What do you do?</span></li><li><span class="q">A coworker is not following procedures. What do you do?</span></li><li><span class="q">What would you do if you felt unwell before an early shift?</span><span class="tip">尽早按规定通知主管，不硬撑也不消失。</span></li></ol></details>
+<details><summary>## F. 收尾</summary><ol class="qs"><li><span class="q">Why should we hire you?</span><span class="tip">三点：可靠待满整季 + 服务/带孩子的经验 + 双语与学习能力。</span></li><li><span class="q">What questions do you have for us?</span><span class="tip">准备 3 个（见下）。</span></li><li><span class="q">Is there anything else you&#x27;d like us to know?</span></li></ol></details>
+<details><summary>## 她可以反问的问题（挑 2–3 个）</summary><ol class="qs"><li><span class="q">What does a typical day look like in this role, and what&#x27;s the training like in the first week?</span></li><li><span class="q">How does staff housing work — room type, cost, how it&#x27;s deducted from pay, and when I can move in?</span></li><li><span class="q">What do the most successful seasonal staff here do differently?</span></li><li><span class="q">Are there opportunities to return next season or move into a year-round role?</span></li><li><span class="q">What staff perks are included (pass, lessons, meals, transport to the hill)?</span></li></ol></details>
+<h3>托儿 / Kids Club 题库（12 题）</h3>
+<details><summary>## 全部题目</summary><ol class="qs"><li><span class="q">Tell me about your experience working with children. What age groups?</span></li><li><span class="q">How do you keep a group of young children safe and engaged indoors on a stormy day?</span></li><li><span class="q">A child is crying and won&#x27;t stop after the parent leaves. What do you do?</span></li><li><span class="q">Two children are fighting over a toy. Walk me through how you handle it.</span></li><li><span class="q">How do you communicate with a parent at pick-up when something happened (small injury, conflict)?</span></li><li><span class="q">A parent is late for pick-up and not answering the phone. What do you do?</span></li><li><span class="q">How would you adapt an activity for a child who has trouble following instructions or has additional needs?</span></li><li><span class="q">What does a developmentally appropriate activity look like for a 3-year-old vs. a 7-year-old?</span></li><li><span class="q">How do you handle a child who keeps breaking rules?</span></li><li><span class="q">What do you know about allergy, sign-in/sign-out, and ratio rules in a licensed childcare setting?</span><span class="tip">不懂就说会按机构规程学，别编规定。</span></li><li><span class="q">Do you have First Aid / CPR, or are you willing to get it before the season?</span><span class="tip">照实 + 可以登陆后尽快考。</span></li><li><span class="q">Tell me about a time you noticed something concerning about a child&#x27;s wellbeing. What did you do?</span><span class="tip">讲按流程上报，不自己下结论。</span></li></ol></details>
+<h3>酒店 / 小屋 / 极光 / 工作营题库（16 题）</h3>
+<details><summary>## 景区酒店（Fairmont / Pursuit 等）</summary><ol class="qs"><li><span class="q">Why do you want to work in a hotel in a national park, and why this season?</span><span class="tip">写明能待到季末。</span></li><li><span class="q">A guest arrives late at night and their room is not ready. What do you do?</span></li><li><span class="q">How would you handle a guest who complains loudly at the front desk in front of other guests?</span></li><li><span class="q">Housekeeping: how do you keep quality when you have many rooms to finish in a short time?</span></li><li><span class="q">Tell me about a time you worked with people from many different countries.</span></li></ol></details>
+<details><summary>## 直升机 / 雪猫滑雪小屋</summary><ol class="qs"><li><span class="q">Our lodge is remote and you live on site for weeks. How do you feel about that?</span><span class="tip">讲合住和长期驻守的真实经验。</span></li><li><span class="q">Guests pay a lot and expect a very high level of service. Give an example of going beyond what was asked.</span></li><li><span class="q">In a small team everyone helps everywhere. Are you okay doing dishes, cleaning and serving on the same day?</span></li></ol></details>
+<details><summary>## 极光旅游（耶洛奈夫 / 怀特霍斯）</summary><ol class="qs"><li><span class="q">Many of our guests are from China, Japan and Korea. How would your language skills help?</span><span class="tip">只说事实库里的语言能力。</span></li><li><span class="q">Tours run late at night in −30 °C. How would you keep guests safe and happy while waiting for the aurora?</span></li><li><span class="q">What would you do if the aurora does not appear and guests are disappointed?</span></li></ol></details>
+<details><summary>## 偏远工作营（camp attendant / kitchen helper）</summary><ol class="qs"><li><span class="q">Have you worked long shifts or a rotation such as 14 days on, 7 days off? How did you stay healthy?</span><span class="tip">没有就说怎么准备。</span></li><li><span class="q">Camps have strict safety and drug &amp; alcohol rules. Why are those rules important?</span></li><li><span class="q">You clean many rooms a day for workers on different shifts. How do you stay quiet and efficient?</span></li><li><span class="q">Tell me about a time you noticed a safety hazard. What did you do?</span></li><li><span class="q">How do you handle living in a remote place with limited internet and few people to talk to?</span></li></ol></details>
+<p>酒店前台 41 题（已有）：本机 <code>~/Downloads/手册_四季酒店前台面试问答.html</code>。那份的示范答案混用了别的背景，只借问题和答题结构。</p>
+</section>
+
+<section id="together">
+<h2>8 · 两个人怎么配合</h2>
+<div class="cols">
+<div><h3>她：申请人</h3><ul><li>只用手机或网页版 claude.ai / ChatGPT。</li><li>负责真实经历、拍板投不投、本人提交、练面试。</li><li>建一个 Project「冬季度假村求职」，上传丈夫导出的事实库和题库，对话会自带背景。</li></ul></div>
+<div><h3>他：操作员</h3><ul><li>在 Mac 上用 Claude Code 和 Codex，工作目录 <code>~/求职_加拿大_夫妻/</code>。</li><li>负责找岗位、写和审材料、维护追踪表、每天导出给她看的清单。</li><li>不替她回答事实问题，不替她点提交。</li></ul></div>
+</div>
+<h3>交接方式</h3>
+<ul>
+<li>他 → 她：<code>90_手机导出/</code> 里的 .md，用微信发或用 Google Drive 只同步这一个文件夹。她只看不改。</li>
+<li>她 → 他：语音口述整理后的文字、对清单的「投 / 不投 / 问」、模拟面试总评截图，都用微信发。</li>
+</ul>
+<h3>每天 10 分钟站会（晚饭后）</h3>
+<ol class="steps">
+<li><div>他念当天「待她确认」，她逐条回答。</div></li>
+<li><div>她说今天练了哪几题、哪题卡住。</div></li>
+<li><div>定明天：投哪几份、哪场面试、要补哪段口述。Codex 写回追踪表。</div></li>
+</ol>
+<h3>每周日 30 分钟复盘</h3>
+<p>Codex 出统计（各状态数量、投递数、面试数）；看哪类岗位和哪个地区回复多，调整下周重点；超过 14 天的核实交给 Claude 重查；自评 3 分以下的面试题进入下周重点练习。</p>
+</section>
+
+<section id="tools">
+<h2>9 · Claude 与 Codex 分工</h2>
+<p>Claude 管外面的信息和写作质量，Codex 管本机文件和核对，她管真实和拍板。两个工具都在同一个文件夹里工作，规则写在 <code>CLAUDE.md</code> 和 <code>AGENTS.md</code>（两份内容一致）。</p>
+<div class="tw"><table>
+<thead><tr><th>任务</th><th>谁做</th><th>产出</th></tr></thead>
+<tbody>
+<tr><td>找岗位、核实宿舍和招聘状态</td><td>Claude</td><td>追踪表新行（附来源、核实日）</td></tr>
+<tr><td>每日「待她确认」清单</td><td>Codex</td><td><code>待她确认/日期.md</code> + 手机导出</td></tr>
+<tr><td>主简历 → 4 个变体</td><td>Codex</td><td><code>简历变体/</code>，附数字 diff</td></tr>
+<tr><td>求职信、面试答案润色</td><td>Claude</td><td><code>简历变体/雇主_岗位_v1.md</code></td></tr>
+<tr><td>交叉审稿</td><td>写的另一方</td><td>文件末尾审稿记录</td></tr>
+<tr><td>模拟面试（深度）</td><td>Claude</td><td>面试准备单</td></tr>
+<tr><td>投递后冻结、跟进邮件草稿</td><td>Codex</td><td><code>已发出/</code></td></tr>
+<tr><td>周日统计</td><td>Codex</td><td><code>60_复盘/</code></td></tr>
+<tr><td>密西沙加备选轨道</td><td>Codex 跑 <code>~/ca_job_pipeline</code></td><td>流水线审阅页</td></tr>
+</tbody></table></div>
+<h3>交叉审稿 8 条</h3>
+<ol>
+<li>每句经历都能在事实库找到出处。</li>
+<li>数字都有来源。</li>
+<li>没有暗示加拿大经验、法语、托儿证书、滑雪水平、驾照（除非事实库有）。</li>
+<li>工作授权统一写：Canadian Permanent Resident — no sponsorship required。</li>
+<li>开头两句对上 JD 前三项要求；写明能待到季末。</li>
+<li>模板和导出文件里没有真实姓名、电话、SIN。</li>
+<li>链接是官网招聘首页或当天验证过的深链，核实日期在 14 天内。</li>
+<li>求职信 ≤250 词、简历 1 页、没有空洞套话。</li>
+</ol>
+</section>
+
+<section id="prompts">
+<h2>10 · 提示词（可复制）</h2>
+<h3>她用：手机 / 网页版</h3>
+<div class="prompt"><div class="prompt-head"><h4>① 口述经历 → STAR 条目</h4><button type="button" class="copy" data-target="p-妻子_手机网页版-0">复制</button></div><ul class="notes"><li>用途：把一段真实经历变成简历和面试能用的素材。</li><li>准备：想好一件具体的事（什么时候、在哪、你做了什么、结果怎样）。</li><li>期望输出：中英 STAR + 待补清单 + 标签。复制发给丈夫，他贴进事实库。</li></ul><pre id="p-妻子_手机网页版-0">我接下来用中文口述一段真实工作经历。请帮我：
+1) 整理成 STAR（情境/任务/行动/结果），中文一版、英文一版，英文控制在 90 秒能说完；
+2) 只用我说过的事实，不要添加任何我没说的数字、头衔或结果；缺的信息用 [待补：…] 标出来，并在最后问我最多 3 个追问；
+3) 最后给一行标签，说明它适合回答哪类面试题（服务/投诉、带孩子、团队、犯错补救、快速学习、压力、集体生活）。
+我的经历是：</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>② 15 分钟模拟面试（度假村 HR）</h4><button type="button" class="copy" data-target="p-妻子_手机网页版-1">复制</button></div><ul class="notes"><li>用途：每天练一轮。</li><li>准备：说清楚岗位类型（前台/托儿/零售/客房）。</li><li>期望输出：一问一答，结束有总评。把总评截图发给丈夫存档。</li></ul><pre id="p-妻子_手机网页版-1">你现在是加拿大一家滑雪度假村的 HR，正在给 2026-27 冬季的 [岗位] 做视频面试。我是新登陆的加拿大永久居民，没有加拿大工作经验。
+规则：
+- 用英文提问，一次只问一题，等我回答后再继续；
+- 一共 5 题：1 题动机/可用性，1 题宿舍或山里生活，2 题客户服务或带孩子情景，1 题团队或犯错；
+- 我每答完一题，用中文给我：一个做得好的地方、一个最该改的地方、一句更自然的英文改写（只改表达，不替我编经历）；
+- 5 题结束后给总评（1–5 分）和明天最该练的一题。
+现在开始第一题。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>③ 今天的岗位帮我分「投 / 不投 / 问」</h4><button type="button" class="copy" data-target="p-妻子_手机网页版-2">复制</button></div><ul class="notes"><li>用途：看丈夫发来的「待她确认」清单。</li><li>准备：复制清单全文。</li><li>期望输出：每个岗位一段分析 + 一个问题。然后你回丈夫「投/不投/问」。</li></ul><pre id="p-妻子_手机网页版-2">下面是今天给我挑的滑雪度假村岗位清单。请用中文帮我逐个列出：住宿条件、上班时间可能的辛苦点、我已经满足和还不满足的要求、去那里生活要注意什么。
+不要替我决定，最后列出每个岗位我该问丈夫或问雇主的 1 个问题。
+清单：</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>④ 面试后复盘</h4><button type="button" class="copy" data-target="p-妻子_手机网页版-3">复制</button></div><ul class="notes"><li>用途：真实面试结束 24 小时内。</li><li>期望输出：表格 + 改进版答案 + 感谢信草稿。发给丈夫存进 `模拟面试记录/`。</li></ul><pre id="p-妻子_手机网页版-3">我刚面完 [度假村] 的 [岗位]。我用中文口述被问到的问题和我当时的回答。
+请帮我：1) 整理成「问题 → 我的回答要点 → 自评 1–5」表格；2) 找出答得最弱的一题，给一个更好的 60 秒英文版本（只能用我口述里真实的经历）；3) 写一封 3 句话的英文感谢邮件草稿（我自己发）。
+我口述如下：</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>⑤ 入职前准备（拿到 offer 后）</h4><button type="button" class="copy" data-target="p-妻子_手机网页版-4">复制</button></div><ul class="notes"><li>期望输出：两段清单。政策项让丈夫在电脑上用 Claude 核实。</li></ul><pre id="p-妻子_手机网页版-4">我拿到了加拿大 [省份] [度假村] 的冬季 [岗位] offer，住员工宿舍，[日期] 报到。我是 [日期] 刚登陆的永久居民。
+请用中文按「出发前 / 到达第一周」两部分，列出：要带的证件和文件、要办的事（SIN、银行、手机、当地医保、急救证如需）、山里冬季要带的衣物装备、怎么从 [城市] 到度假村。
+每一条政策类事项请标注「需要去官网核实」，不要给我编具体费用或日期。</pre></div>
+<h3>他用：Claude Code</h3>
+<div class="prompt"><div class="prompt-head"><h4>① 找岗位 + 核实（每 2–3 天一次）</h4><button type="button" class="copy" data-target="p-丈夫_Claude-0">复制</button></div><ul class="notes"><li>用途：发现新岗位，核实宿舍和招聘状态。</li></ul><pre id="p-丈夫_Claude-0">按 CLAUDE.md 的规则，为申请人找 2026-27 冬季滑雪度假村岗位：
+- 先读 10_岗位追踪/岗位池_滑雪度假村.md 和 岗位追踪表.md，跳过已有的；
+- 用 Indeed 搜索（关键词组合：ski resort staff accommodation / staff housing winter seasonal / guest services ski / kids club ski / daycare attendant ski resort），再打开各度假村官网招聘首页核对；
+- 只收：有员工宿舍或明确住房补助、季节覆盖 12 月–次年 3 月、不要求法语和滑雪证书的岗位；
+- 每条写进追踪表新行（状态=发现），宿舍类型/费用/单双人、季节起止、招聘页、核实日都要填，查不到的写 [待核实]；
+- 最后告诉我新增几条、哪 3 条最值得先投、为什么。不要提交任何申请。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>② 写求职信（她说「投」之后）</h4><button type="button" class="copy" data-target="p-丈夫_Claude-1">复制</button></div><pre id="p-丈夫_Claude-1">为追踪表第 [N] 行（[度假村] [岗位]）写求职信：
+- 先读岗位 JD（链接在表里，打不开就让我粘贴），列出前三项要求；
+- 按 20_简历与求职信/求职信_四段骨架.md，≤250 词；事实只能来自 事实库_口述整理.md，每段末尾用 HTML 注释标出处；
+- 同时从简历变体里选最合适的一版，说明为什么；
+- 存为 20_简历与求职信/简历变体/[雇主]_[岗位]_v1.md，状态改「材料中」，提醒我交给 Codex 按交叉审稿清单审。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>③ 审 Codex 生成的简历变体</h4><button type="button" class="copy" data-target="p-丈夫_Claude-2">复制</button></div><pre id="p-丈夫_Claude-2">按 00_规则与分工/交叉审稿清单.md 的 8 条，审 20_简历与求职信/简历变体/[文件]。逐条打 ✓/✗，✗ 写原句和改法，把审稿记录追加到文件末尾。不要直接改正文。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>④ 重要面试前的深度模拟</h4><button type="button" class="copy" data-target="p-丈夫_Claude-3">复制</button></div><pre id="p-丈夫_Claude-3">申请人 [日期] 要面 [度假村] [岗位]。请：
+1) 联网查这家度假村的基本情况（位置、规模、员工宿舍、近期新闻），给 5 条她面试时可以自然提到的事实，附来源；
+2) 从 30_面试/ 题库里挑 8 题最可能问的，加 2 题针对这家的；
+3) 对每题，从 STAR故事库.md 里匹配一个故事，写 60 秒英文答案要点（只用事实库）；
+4) 输出成一页，存 30_面试/模拟面试记录/[日期]_准备_[度假村].md，并导出一份到 90_手机导出/。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>⑤ 政策与生活类核实</h4><button type="button" class="copy" data-target="p-丈夫_Claude-4">复制</button></div><pre id="p-丈夫_Claude-4">联网核实以下问题，每条给结论、官方来源链接、页面更新日期；查不到就明说：
+[例：新 PR 搬到 BC 后 MSP 的等待期；在 AB 度假村工作是否要先换 AB 医保；Banff 员工宿舍的入住条件]
+结果更新到手册「易变事实核实表」对应行。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>⑥ 更新手册并重新发布</h4><button type="button" class="copy" data-target="p-丈夫_Claude-5">复制</button></div><pre id="p-丈夫_Claude-5">根据本周变化（列出：…），更新 _手册源/ 里的内容，运行 python3 _手册源/build.py 重建手册，然后用同一个 Artifact 链接重新发布，并把本地版复制到 ~/Downloads/HTML资料整理/02_求职简历与面试/。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>⑦ 其他四类岗位：找岗位 + 核实</h4><button type="button" class="copy" data-target="p-丈夫_Claude-6">复制</button></div><pre id="p-丈夫_Claude-6">读 CLAUDE.md 和 10_岗位追踪/岗位池_其他四类.md。在 [景区酒店 / 直升机滑雪小屋 / 极光旅游 / 偏远工作营] 里找现在开放、带住宿、不要求驾照和法语的入门岗位（客房、前台、餐饮、厨房帮工、camp attendant）。
+每条写：雇主、岗位、地点、住宿和费用、轮班制、季节、要求（体检/药检/证书）、官网招聘入口、核实日期。查不到写 [待核实]。
+结果追加进岗位池和岗位追踪表（状态=发现），再挑最多 5 条写进今天的 待她确认/。</pre></div>
+<h3>他用：Codex</h3>
+<div class="prompt"><div class="prompt-head"><h4>① 每日导出「待她确认」</h4><button type="button" class="copy" data-target="p-丈夫_Codex-0">复制</button></div><pre id="p-丈夫_Codex-0">读 10_岗位追踪/岗位追踪表.md，挑出状态=发现、按优先级最高的最多 5 条，按 10_岗位追踪/待她确认/_模板.md 的格式生成 10_岗位追踪/待她确认/[今天日期].md（中文、手机好读、不要表格），并复制一份到 90_手机导出/。把这几行状态改为「待她确认」。只改这两个文件和追踪表。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>② 记录她的回复</h4><button type="button" class="copy" data-target="p-丈夫_Codex-1">复制</button></div><pre id="p-丈夫_Codex-1">申请人对今天清单的回复是：[1 投；2 不投（宿舍要自己找）；3 问：能不能单人间]。
+更新追踪表：投→材料中；不投→复盘/关闭并在「下一步」写原因；问→保持待她确认，「下一步」写要问的问题和问谁。每行填好下次跟进日期。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>③ 从主简历生成 4 个变体</h4><button type="button" class="copy" data-target="p-丈夫_Codex-2">复制</button></div><pre id="p-丈夫_Codex-2">按 20_简历与求职信/简历变体/README.md 生成 guest_services / kids_club / retail_rentals / housekeeping_fnb 四个 .md 变体。只能从 主简历_英文.md 删、选、排序、换动词，不能新增事实。
+生成后对每个变体跑 README 里的数字 diff，再列出变体里所有不在主简历中的名词短语，结果贴在每个文件末尾。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>④ 审 Claude 写的求职信</h4><button type="button" class="copy" data-target="p-丈夫_Codex-3">复制</button></div><pre id="p-丈夫_Codex-3">按 00_规则与分工/交叉审稿清单.md 审 20_简历与求职信/简历变体/[文件]：逐句对照 事实库_口述整理.md，找出处；8 条逐条 ✓/✗，审稿记录追加到文件末尾，不改正文。全 ✓ 时把追踪表该行状态提示我改为「她看过」之前要先给她看。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>⑤ 投递后冻结 + 跟进</h4><button type="button" class="copy" data-target="p-丈夫_Codex-4">复制</button></div><pre id="p-丈夫_Codex-4">追踪表第 [N] 行已由申请人本人提交（日期 [YYYY-MM-DD]）。把当时用的简历和求职信复制到 20_简历与求职信/已发出/[日期]_[雇主]_[岗位]/，状态改「已投递」，下次跟进设为 7 天后，并起草一封英文跟进邮件存同目录（不要发送）。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>⑥ 周日统计</h4><button type="button" class="copy" data-target="p-丈夫_Codex-5">复制</button></div><pre id="p-丈夫_Codex-5">读追踪表和 30_面试/模拟面试记录/，按 60_复盘/周复盘_模板.md 生成 60_复盘/[日期]_周复盘.md：各状态数量、本周投递数、面试数、从发现到投递平均天数、核实日超过 14 天的行、自评 ≤3 分的面试题。导出一份到 90_手机导出/。</pre></div>
+<div class="prompt"><div class="prompt-head"><h4>（备选轨道）跑密西沙加本地流水线</h4><button type="button" class="copy" data-target="p-丈夫_Codex-6">复制</button></div><pre id="p-丈夫_Codex-6">在 ~/ca_job_pipeline 运行 ./jp doctor 和 ./jp review --open，只汇总审阅页前 5 条（雇主、岗位、匹配分、理由），不要 prefill 或 apply。</pre></div>
+</section>
+
+<div class="part" id="part2"><span class="eyebrow">下篇</span><strong>过好整个雪季</strong><span>拿到 offer 之后：到岗、住、穿、钱、心情、收尾</span></div>
+
+<section id="checklist">
+<h2>✓ 到岗清单（手机可勾选）</h2>
+<p>点一下就打勾。两种共享方式：</p>
+<ul>
+<li><strong>不登录（网页或 HTML 文件）</strong>：勾完点「发进度链接」，用微信发给对方。对方点开链接，选「合并」就同步过来。每次要同步就再发一次。</li>
+<li><strong>claude.ai 在线版</strong>：两个人登录后自动实时同步，另一个人要被设为编辑者。</li>
+</ul>
+<div class="ck-bar" aria-live="polite"><div class="ck-total"><span id="ck-count">0 / 0</span><span class="ck-track"><span id="ck-fill"></span></span></div><button type="button" id="ck-reset" class="ck-reset">全部清空</button></div>
+<p id="ck-status" class="ck-status" aria-live="polite"></p>
+<div id="ck-import" class="callout" hidden><p id="ck-import-msg"></p><div class="ck-actions"><button type="button" id="ck-merge" class="ck-btn">合并（推荐）</button><button type="button" id="ck-replace" class="ck-btn ghost">用对方的覆盖</button><button type="button" id="ck-ignore" class="ck-btn ghost">忽略</button></div></div>
+<div id="ck-sharebox" class="ck-actions"><button type="button" id="ck-link" class="ck-btn">发进度链接</button><span id="ck-share-msg" class="ck-status"></span></div>
+
+<div class="ck-group" data-group="before"><h3>出发前（拿到 offer 后）<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="b1"><span>拿到书面 offer：岗位、时薪、每周工时、宿舍费和扣法、入住日期都写清</span></label>
+<label><input type="checkbox" data-id="b2"><span>问清宿舍：几人一间、是否分男女、床品厨具、押金多少和怎么退</span></label>
+<label><input type="checkbox" data-id="b3"><span>问清从机场或车站到宿舍怎么走，有没有员工班车</span></label>
+<label><input type="checkbox" data-id="b4"><span>offer、宿舍规则、HR 邮箱存进手机，并发一份给家人</span></label>
+<label><input type="checkbox" data-id="b5"><span>准备 ≥$2,000 生活费 + 一张有额度的信用卡</span></label>
+<label><input type="checkbox" data-id="b6"><span>医保生效前的私人保险已买好（见第 5 节）</span></label>
+<label><input type="checkbox" data-id="b7"><span>考好岗位要的证书：急救 + CPR（工作营还要 WHMIS）</span></label>
+</div>
+
+<div class="ck-group" data-group="pack"><h3>行李带齐<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="p1"><span>PR 卡或 COPR、SIN 号码、医保卡或保险单、证书复印件</span></label>
+<label><input type="checkbox" data-id="p2"><span>排汗内层（不要纯棉）、抓绒中层、防水防风外套和裤子</span></label>
+<label><input type="checkbox" data-id="p3"><span>防滑防水靴、保暖帽、围脖、两副手套</span></label>
+<label><input type="checkbox" data-id="p4"><span>拖鞋、浴巾、小台灯、耳塞眼罩、带锁小箱子、插线板</span></label>
+<label><input type="checkbox" data-id="p5"><span>常用药、润肤霜、润唇膏、高倍防晒</span></label>
+</div>
+
+<div class="ck-group" data-group="day1"><h3>入住当天<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="d1"><span>拍照记录房间原状（墙、床垫、家具、地毯），发给宿舍管理员留底</span></label>
+<label><input type="checkbox" data-id="d2"><span>存下宿舍管理员、主管、HR 三个人的电话</span></label>
+<label><input type="checkbox" data-id="d3"><span>天黑前走一遍：宿舍 → 工作地点、超市、诊所、班车站</span></label>
+<label><input type="checkbox" data-id="d4"><span>跟家人开启位置共享，约好每天报平安的时间</span></label>
+</div>
+
+<div class="ck-group" data-group="week1"><h3>第一周<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="w1"><span>交给 HR：SIN、银行直存表、TD1 联邦和省税表、PR 卡或 COPR</span></label>
+<label><input type="checkbox" data-id="w2"><span>跟室友谈清：安静时间、访客、打扫分工、冰箱和共用物品</span></label>
+<label><input type="checkbox" data-id="w3"><span>证件和现金锁进箱子；贵重装备写名字、拍序列号</span></label>
+<label><input type="checkbox" data-id="w4"><span>读完工作守则和宿舍规则，不懂的当场问</span></label>
+<label><input type="checkbox" data-id="w5"><span>问 HR：员工季票、员工餐、EAP 心理咨询怎么用</span></label>
+<label><input type="checkbox" data-id="w6"><span>办当地医保（AB 3 个月内申请；BC 申请后等待）</span></label>
+<label><input type="checkbox" data-id="w7"><span>设好发薪日自动转存（例如到手的 30%）</span></label>
+<label><input type="checkbox" data-id="w8"><span>手机备忘录开始每天记工时</span></label>
+</div>
+
+<div class="ck-group" data-group="season"><h3>雪季中（每周）<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="s1"><span>工资单核对 4 行：工时、CPP/EI、所得税、宿舍费</span></label>
+<label><input type="checkbox" data-id="s2"><span>运动 3 次、社交 1 次、跟家人视频 2 次</span></label>
+<label><input type="checkbox" data-id="s3"><span>每两周下山集中采购一次</span></label>
+<label><input type="checkbox" data-id="s4"><span>只在雪场界内滑；开车前查 DriveBC / 511 Alberta</span></label>
+</div>
+
+<div class="ck-group" data-group="end4"><h3>季末前 4 周<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="e1"><span>问主管：有没有夏季岗位或明年回聘</span></label>
+<label><input type="checkbox" data-id="e2"><span>问清季末奖金的发放条件</span></label>
+<label><input type="checkbox" data-id="e3"><span>请主管写推荐信或答应做 reference；LinkedIn 请同事推荐</span></label>
+<label><input type="checkbox" data-id="e4"><span>简历加上这份工作，附具体数字</span></label>
+</div>
+
+<div class="ck-group" data-group="leave"><h3>离开那周<span class="ck-g"></span></h3>
+<label><input type="checkbox" data-id="l1"><span>确认最后上班日；要提前走就至少提前 2 周书面通知</span></label>
+<label><input type="checkbox" data-id="l2"><span>向 HR 要 ROE（离职记录）</span></label>
+<label><input type="checkbox" data-id="l3"><span>按入住照片打扫，约管理员一起验房，确认押金怎么退</span></label>
+<label><input type="checkbox" data-id="l4"><span>留下新的邮寄地址，确认 T4 寄到哪</span></label>
+<label><input type="checkbox" data-id="l5"><span>卖掉或寄走大件装备</span></label>
+</div>
+</section>
+
+<section id="arrive">
+<h2>11 · 抵达与第一周</h2>
+<div class="callout"><p><strong>结论</strong>：带够两个月的生活费再出发。第一份工资通常要等 2–4 周，宿舍押金和装备都在这之前花。</p></div>
+<h3>出发前（offer 到手后）</h3>
+<ol class="steps">
+<li><div>要书面 offer。确认 5 件事：岗位、时薪、每周大概工时、宿舍费和扣法、入住日期。</div></li>
+<li><div>问清宿舍：几人一间、是否分男女、有没有床品和厨具、押金多少、什么时候退。</div></li>
+<li><div>问清交通：从最近机场或长途车站怎么到宿舍。有没有员工班车。</div></li>
+<li><div>把 offer、宿舍规则、HR 邮箱存进手机，并发一份给家人。</div></li>
+<li><div>准备现金和卡：现金 ≥$2,000 等值（Blue Mountain 官方也建议 ≥$2,000 积蓄），一张有额度的信用卡（部分宿舍要信用卡押金）。</div></li>
+</ol>
+<h3>第一天要交的材料</h3>
+<div class="tw"><table>
+<thead><tr><th>材料</th><th>做什么用</th><th>注意</th></tr></thead>
+<tbody>
+<tr><td>SIN</td><td>发工资、报税</td><td>只给 HR，别拍照发群</td></tr>
+<tr><td>银行直存表（void cheque 或 direct deposit form）</td><td>工资打进账户</td><td>网银里能下载</td></tr>
+<tr><td>TD1 联邦 + 省税表</td><td>决定每次扣多少税</td><td>一年只有一份工作就按默认填；有两份工作要问清</td></tr>
+<tr><td>PR 卡或 COPR</td><td>证明能工作</td><td>PR 卡寄到前用 COPR</td></tr>
+<tr><td>急救证、Food Safe 等证书</td><td>部分岗位要求</td><td>托儿岗几乎都要急救证</td></tr>
+</tbody></table></div>
+<h3>入住当天</h3>
+<ul>
+<li>拍照记录房间原状：墙、床垫、家具、地毯。拍完发给宿舍管理员留底。季末退押金靠它。</li>
+<li>找到三个人：宿舍管理员（housing coordinator）、直属主管、HR。存下他们的电话。</li>
+<li>认路：从宿舍到工作地点、超市、诊所、员工班车站。天黑前走一遍。</li>
+<li>第一周排班多是培训。把工作守则读完，有不懂的当场问。</li>
+</ul>
+</section>
+
+<section id="dorm">
+<h2>12 · 宿舍生活与室友</h2>
+<p>员工宿舍多是 2–4 人合住，室友来自世界各地，作息和习惯都不同。<strong>第一周就把规则说开</strong>，比忍到爆发好得多。</p>
+<div class="cols">
+<div><h3>第一周跟室友谈清</h3><ul><li>安静时间：几点后不放音乐、不打电话。</li><li>访客：能不能留宿，要不要提前说。</li><li>厨房和卫生：谁什么时候打扫，冰箱怎么分。</li><li>共用物品：调料、清洁剂怎么出钱。</li></ul></div>
+<div><h3>保护自己的东西</h3><ul><li>证件、现金、电脑放带锁的箱子或柜子。</li><li>护照原件可以不带去宿舍，只带 PR 卡。</li><li>贵重装备（雪板、头盔）写名字、拍序列号。</li></ul></div>
+</div>
+<h3>出现矛盾时按这个顺序升级</h3>
+<div class="flow"><span>直接跟室友谈</span><i>→</i><span>宿舍管理员</span><i>→</i><span>主管 / HR</span><i>→</i><span>有安全问题直接 911</span></div>
+<ul>
+<li>谈的时候说事实和请求：「昨晚 1 点有人在房间放音乐。我 6 点上早班，请 11 点后戴耳机。」</li>
+<li>换房间是正常请求。理由写清楚，用邮件发给宿舍管理员，留记录。</li>
+<li>宿舍规则通常禁止在房间吸烟、吸大麻、用电炉、养宠物。违规可能被收回宿舍，宿舍丢了工作往往也难保。</li>
+</ul>
+</section>
+
+<section id="safety">
+<h2>13 · 装备、御寒与安全</h2>
+<h3>装备清单：先带基础，到了再买</h3>
+<div class="tw"><table>
+<thead><tr><th>类别</th><th>必带</th><th>可以到了再买</th></tr></thead>
+<tbody>
+<tr><td>穿</td><td>排汗内层（羊毛或化纤，<strong>不要纯棉</strong>）、抓绒中层、防水防风外套和裤子、防滑防水靴</td><td>员工店打折的雪服；工作制服由雇主发</td></tr>
+<tr><td>头和手</td><td>保暖帽、围脖、手套两副（一副备用）</td><td>滑雪手套、护目镜</td></tr>
+<tr><td>宿舍</td><td>拖鞋、浴巾、小台灯、耳塞眼罩、带锁小箱子、插线板</td><td>床品（问清是否提供）</td></tr>
+<tr><td>健康</td><td>常用药、润肤霜、润唇膏、高倍防晒（雪地反光强）</td><td>保温杯、暖宝宝</td></tr>
+<tr><td>证件</td><td>PR 卡/COPR、医保卡或私人保险单、急救证复印件</td><td>—</td></tr>
+</tbody></table></div>
+<h3>冷：认识冻伤和失温</h3>
+<ul>
+<li>穿衣用三层法：排汗层 + 保暖层 + 防风防水层。湿了马上换，湿衣服最容易失温。</li>
+<li>冻伤早期：皮肤发白或发灰、发麻、摸起来发硬。马上进室内，用温水（不是热水）慢慢回暖，不要搓。</li>
+<li>失温信号：一直发抖、说话含糊、动作笨拙、犯困。马上找人帮忙，严重时打 911。</li>
+</ul>
+<h3>女生安全</h3>
+<ul>
+<li>夜班下班，尽量结伴或坐员工班车回宿舍。在偏僻处等车时打电话给家人。</li>
+<li>员工聚会很多，酒也多。饮料不离手，喝多少自己定。随时可以先走。</li>
+<li>遇到骚扰：记下时间、地点、人和话，发邮件给 HR。加拿大雇主依法要处理职场骚扰。</li>
+<li>跟家人共享手机定位。约定每天一个固定时间报平安。</li>
+<li>偏远营地和小屋手机信号可能很差。到岗前问清有没有 Wi-Fi 和紧急联系方式。</li>
+</ul>
+<h3>山上和路上</h3>
+<ul>
+<li><strong>只在雪场界内滑。</strong>界外没有巡逻和控雪，有雪崩风险。出界前必须上过雪崩课程并带全装备；新手不出界。雪崩预报看 <a href="https://avalanche.ca">avalanche.ca</a>。</li>
+<li>BC 大部分公路（内陆、北部、Sea to Sky 等）<strong>10-01 起要求冬胎或带防滑链</strong>，多数路段到 4-30，少数到 3-31。合格冬胎要有 M+S 或雪花山峰标志、胎纹 ≥3.5 mm；违规罚 $121（<a href="https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/traveller-information/seasonal/winter-driving/winter-tire-and-chain-up-routes">gov.bc.ca</a>，2026-10-07 核实）。</li>
+<li>冬天山路尽量坐长途车或员工班车，不自己开新车上山。出发前查路况：BC 看 <a href="https://www.drivebc.ca">DriveBC</a>，AB 看 <a href="https://511.alberta.ca">511 Alberta</a>。</li>
+<li>Banff / Jasper 有野生动物，冬天也会遇到麋鹿。保持距离，不喂食。</li>
+</ul>
+<div class="callout warn"><p>紧急情况打 <strong>911</strong>。在雪场受伤，先找雪场巡逻（ski patrol），再报告主管——工伤要当天报告，才能走工伤赔偿。</p></div>
+</section>
+
+<section id="money">
+<h2>14 · 钱：算净收入，再定存多少</h2>
+<p>度假村和酒店工资多在最低工资附近，宿舍费从工资里扣。先算两周到手多少，再定存钱目标。</p>
+<div class="tw"><table>
+<thead><tr><th>例子（每两周）</th><th>BC 度假村（如 Big White）</th><th>AB 度假村（如 Lake Louise）</th></tr></thead>
+<tbody>
+<tr><td>时薪</td><td class="num">$18.25（BC 最低工资，2026-06-01 起）</td><td class="num">$15.00（AB 最低工资）；实际常高于此</td></tr>
+<tr><td>工时</td><td class="num">35 小时/周 × 2 = 70 小时</td><td class="num">同左</td></tr>
+<tr><td>税前</td><td class="num">≈ $1,278</td><td class="num">≈ $1,050</td></tr>
+<tr><td>税和 CPP/EI（粗估 12–15%）</td><td class="num">≈ −$170</td><td class="num">≈ −$140</td></tr>
+<tr><td>宿舍</td><td class="num">−$280 至 −$415（$600–900/月）</td><td class="num">−$182 至 −$322（$13–23/晚）</td></tr>
+<tr><td><strong>到手（吃饭前）</strong></td><td class="num"><strong>≈ $690–830</strong></td><td class="num"><strong>≈ $590–730</strong></td></tr>
+</tbody></table></div>
+<p class="meta">粗估，只用来做预算。最低工资：<a href="https://news.gov.bc.ca/releases/2026LBR0021-000581">BC 政府公告</a>、AB $15（2018 年起未调，多个来源一致）；宿舍价为 2026-10-04 官网数据。实际时薪、工时和扣税以 offer 和工资单为准。</p>
+<ul>
+<li><strong>小费</strong>：餐厅、酒吧、小屋客房的小费可能比工资还多。前台、零售通常没有。</li>
+<li><strong>员工福利</strong>：多数度假村给员工免费或打折的季票、员工餐、店内折扣。季票能省下几百到上千元，面试时就问。</li>
+<li><strong>工作营</strong>包吃包住，开销最少，是存钱最快的一类。代价是偏远、轮班长。</li>
+</ul>
+<h3>三条存钱规矩</h3>
+<ol class="steps">
+<li><div>发薪当天自动转一笔到储蓄账户（例如到手的 30%）。剩下的才是生活费。</div></li>
+<li><div>山上超市贵。每两周坐班车下山集中采购一次。</div></li>
+<li><div>装备先租、先借、买二手。员工群里季末常有人便宜卖装备。</div></li>
+</ol>
+</section>
+
+<section id="tax">
+<h2>15 · 工资单、T4 与报税</h2>
+<h3>每次工资单看 4 行</h3>
+<ul>
+<li>工时：和自己记的对得上。每天下班在手机备忘录记一行工时。</li>
+<li>CPP（养老金）和 EI（就业保险）：正常都会扣。</li>
+<li>Income tax（所得税）：按 TD1 扣。</li>
+<li>Housing（宿舍费）：和 offer 写的一致。</li>
+</ul>
+<h3>报税要点</h3>
+<div class="tw"><table>
+<thead><tr><th>事项</th><th>规则</th><th>对她</th></tr></thead>
+<tbody>
+<tr><td>第一次报税</td><td>成为税务居民那一年要报税；首年只报入境日到 12-31 的收入（境外收入另有规定）</td><td>2026 年的税在 <strong class="num">2027-04-30</strong> 前报</td></tr>
+<tr><td>报哪个省</td><td>按 <strong>12 月 31 日</strong>住在哪个省报省税</td><td>12-31 在 BC 宿舍就报 BC，在 AB 就报 AB</td></tr>
+<tr><td>T4</td><td>雇主次年 2 月底前发上年的 T4</td><td>季中离职也要留好邮箱，确认 T4 会寄到哪</td></tr>
+<tr><td>新移民福利</td><td>新移民到了就可能领 GST/HST 抵免等，之后每年都要报税才能继续领</td><td>登陆后可以先用 RC151 表申请 GST/HST 抵免</td></tr>
+</tbody></table></div>
+<p class="meta">来源：<a href="https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants/completing-return-newcomers.html">CRA 新移民报税页</a>、<a href="https://www.canada.ca/en/revenue-agency/news/newsroom/tax-tips/tax-tips-2026/tax-tip-taxes-made-simple-newcomers-canada.html">CRA 2026 新移民报税提示</a>，2026-10-07 核实。T4 截止日和 RC151 用法为一般规则，报税时再看当年页面。</p>
+</section>
+
+<section id="mind">
+<h2>16 · 心理：孤独、短日照和想家</h2>
+<p>雪季前两周最兴奋，1–2 月最难熬：天短、冷、新鲜感过了、离家远。<strong>提前安排好每周的固定节奏</strong>，比等情绪来了再处理好。</p>
+<div class="cols">
+<div><h3>每周固定三件事</h3><ul><li>运动：滑雪、走路、员工健身房，至少 3 次。</li><li>社交：员工活动、同事聚餐，至少 1 次。</li><li>跟家人视频：固定时间，至少 2 次。</li></ul></div>
+<div><h3>留意这些信号</h3><ul><li>连续两周情绪低、对什么都没兴趣。</li><li>睡得太多或睡不着，吃得太多或吃不下。</li><li>越来越不想见人，喝酒越来越多。</li></ul></div>
+</div>
+<ul>
+<li>有上面的信号，先跟家人说，再去看医生。天短引起的季节性情绪低落是常见问题，可以治疗。</li>
+<li>很多雇主有员工援助计划（EAP），提供免费、保密的心理咨询。入职时问 HR 有没有。</li>
+<li>出现想伤害自己的念头，马上打或发短信 <strong>9-8-8</strong>（全国自杀危机热线，24 小时，英法双语，<a href="https://www.canada.ca/en/public-health/news/2023/11/9-8-8-suicide-crisis-helpline.html">canada.ca</a>）。有立即危险打 911。</li>
+<li>她学过心理，容易成为宿舍里「听别人倾诉的人」。可以帮人，但要给自己留边界和休息时间。</li>
+</ul>
+</section>
+
+<section id="end">
+<h2>17 · 季末：收尾和下一步</h2>
+<h3>季末前 4 周</h3>
+<ol class="steps">
+<li><div>问主管：有没有<strong>夏季岗位</strong>或明年 <strong>rehire</strong>（回聘）。表现好的人常被优先回聘，还可能升职。</div></li>
+<li><div>问清季末奖金（completion bonus）的条件。有的雇主要求待到某个日期才发。</div></li>
+<li><div>请主管写推荐信，或答应做电话 reference。同时在 LinkedIn 上请同事写推荐。</div></li>
+<li><div>更新简历：加上这份加拿大工作经历、具体数字（服务多少客人、处理过什么问题）。</div></li>
+</ol>
+<h3>离开那周</h3>
+<ul>
+<li>提前至少 2 周书面通知（如果要提前走）。合同期满正常结束不需要辞职信，但要确认最后上班日。</li>
+<li>要 <strong>ROE</strong>（离职记录，Record of Employment）。之后申请 EI 要用它。季节工能不能领 EI，取决于所在地区要求的工时数 <span class="tag">待核实</span>。</li>
+<li>退宿舍：按入住时的照片打扫，约管理员一起验房，确认押金退回方式。</li>
+<li>留好下一个邮寄地址，确认 T4 寄到哪。</li>
+<li>卖掉或寄走大件装备。季末员工群卖东西的人多，要早一点。</li>
+</ul>
+<h3>回安省的话</h3>
+<p>回密西沙加长住前，按第 5 节重新确认 OHIP 资格和起算日 <span class="tag">待核实</span>。在外省过冬期间换过驾照或医保的，回来也要重新办。</p>
+</section>
+
+
+<div class="part" id="part3"><span class="eyebrow">附录</span><strong>核实表与文件地图</strong><span>易变事实、来源和本地文件位置</span></div>
+
+<section id="facts">
+<h2>18 · 易变事实核实表</h2>
+<p>核实日期超过 14 天就算过期，周日复盘时交给 Claude 重查（提示词「政策与生活类核实」）。</p>
+<div class="tw"><table>
+<thead><tr><th>事实</th><th>当前结论</th><th>核实日</th><th>来源</th></tr></thead>
+<tbody>
+<tr><td>Lake Louise 宿舍价格与入职窗口</td><td>$13–23/人/晚；入职 10/24–12/15</td><td class="num">2026-10-04</td><td><a href="https://www.skilouise.com/contact-us/careers-employment/">skilouise.com</a></td></tr>
+<tr><td>Big White 宿舍价格</td><td>$600–900/月，合住</td><td class="num">2026-10-04</td><td><a href="https://www.bigwhite.com/employment-centre">bigwhite.com</a></td></tr>
+<tr><td>Sunshine / Norquay / Whistler / Fernie 是否在招</td><td>在招</td><td class="num">2026-10-04</td><td>各官网招聘页（见第 3 节）</td></tr>
+<tr><td>BC MSP 等待期</td><td>当月剩余 + 2 个月，无新 PR 豁免</td><td class="num">2026-10-04</td><td><a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol/coverage-wait-period">gov.bc.ca</a></td></tr>
+<tr><td>AB AHCIP 起始日</td><td>境外来：3 个月内申请，自确立居住日起；外省来：第三个月 1 号</td><td class="num">2026-10-07</td><td><a href="https://www.alberta.ca/ahcip-moving-to-alberta">alberta.ca</a></td></tr>
+<tr><td>温哥华入境后去 AB 算「境外来」吗</td><td><span class="tag">待核实</span></td><td>—</td><td>电话问 AHCIP</td></tr>
+<tr><td>OHIP 153/183 规则</td><td>无等待期；前 183 天至少 153 天在安省</td><td class="num">2026-10-04</td><td><a href="https://www.ontario.ca/page/apply-ohip-and-get-health-card">ontario.ca</a></td></tr>
+<tr><td>Alberta 托儿岗 ECE 要求</td><td>6 个月内认证；Level 1 可走免费在线课程</td><td class="num">2026-10-04</td><td><a href="https://www.alberta.ca/early-childhood-educator-certification">alberta.ca</a></td></tr>
+<tr><td>BC 托儿岗要求</td><td>20 小时课程 + 急救（第三方）</td><td>—</td><td><span class="tag">待核实</span></td></tr>
+<tr><td>温哥华机场能否当场办 SIN</td><td><span class="tag">待核实</span></td><td>—</td><td>Service Canada</td></tr>
+<tr><td>Whistler / Banff 2026 秋季招聘会</td><td><span class="tag">待核实</span></td><td>—</td><td>Whistler Chamber、Banff Job Resource Centre</td></tr>
+<tr><td>景区酒店宿舍与时薪</td><td>Chateau Lake Louise $19.48–20.06/h、每班 1 餐；Pursuit $15/天起；Banff Springs $15/天（2022 数据）</td><td class="num">2026-10-07</td><td>Accor 招聘帖、Job Resource Centre；Banff Springs 价格 <span class="tag">待核实</span></td></tr>
+<tr><td>Banff 居住资格</td><td>主要工作须在园内</td><td class="num">2026-10-07</td><td><a href="https://parks.canada.ca/pn-np/ab/banff/info/serviceimmobilier-realty/resident-residency">parks.canada.ca</a></td></tr>
+<tr><td>直升机小屋招聘</td><td>Wiegele 有 26/27 冬季帖；CMH 多数 10/31 前招满；Island Lake 没查到宿舍</td><td class="num">2026-10-07</td><td>各官网 + careerbeacon（部分为搜索摘要）</td></tr>
+<tr><td>工作营时薪与轮班</td><td>$19.50–22/h；14/14、20/10、21/7；要药检、急救、WHMIS</td><td class="num">2026-10-07</td><td>ESS/Civeo/Aramark 招聘帖（部分为搜索摘要）</td></tr>
+<tr><td>极光旅游岗位</td><td>Aurora Village 导游约 $18/h、季节约 11/20–4/14；导游多要 Class 4 驾照</td><td class="num">2026-10-07</td><td>Indeed、Job Bank、怀特霍斯商会（多为往年广告）</td></tr>
+<tr><td>NWT / Yukon 医保</td><td>NWT 外省来第三个月 1 号；Yukon 可能 3 个月等待期</td><td class="num">2026-10-07</td><td>hss.gov.nt.ca；yukon.ca <span class="tag">待核实</span></td></tr>
+<tr><td>BC / AB 最低工资</td><td>BC $18.25（2026-06-01 起）；AB $15</td><td class="num">2026-10-07</td><td><a href="https://news.gov.bc.ca/releases/2026LBR0021-000581">news.gov.bc.ca</a></td></tr>
+<tr><td>BC 冬胎规定</td><td>10-01 起，多数路段到 4-30；罚 $121</td><td class="num">2026-10-07</td><td><a href="https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/traveller-information/seasonal/winter-driving/winter-tire-and-chain-up-routes">gov.bc.ca</a></td></tr>
+<tr><td>新移民报税</td><td>2026 年收入 2027-04-30 前报；按 12-31 所在省</td><td class="num">2026-10-07</td><td>CRA 新移民页</td></tr>
+<tr><td>季节工 EI 所需工时</td><td><span class="tag">待核实</span></td><td>—</td><td>Service Canada</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="folder">
+<h2>19 · 文件夹地图</h2>
+<pre>~/求职_加拿大_夫妻/
+├── README.md                 先读这个
+├── CLAUDE.md / AGENTS.md     项目规则（两份一致）
+├── 00_规则与分工/             分工矩阵 · 交叉审稿清单 · 状态与节奏
+├── 10_岗位追踪/               追踪表 · 度假村岗位池 · 其他四类岗位池 · 备选轨道 · 待她确认/
+├── 20_简历与求职信/           事实库（唯一事实来源）· 主简历 · 变体 · 求职信骨架 · 已发出/
+├── 30_面试/                   度假村题库 · 托儿题库 · 其他四类题库 · 前台41题链接 · STAR故事库 · 复盘 · 模拟记录/
+├── 40_提示词模板/             她_手机 · 他_Claude · 他_Codex
+├── 50_登陆与入职/             入职前置清单（SIN/银行/手机/医保/装备）
+├── 60_复盘/                   周复盘模板
+├── 90_手机导出/               只给她看的导出
+└── _手册源/                   template.html + part_*.html，python3 _手册源/build.py 重建</pre>
+</section>
+
+<footer>本手册不替她做决定，也不替代医生、律师或税务专业意见。政策、宿舍费用、招聘状态会变，以官网为准；标「待核实」的项目执行前请再查一次。</footer>
+</main>
+</div>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var pre=document.getElementById(b.dataset.target);
+    var text=pre.innerText;
+    function done(ok){b.textContent=ok?'已复制':'已选中，请手动复制';setTimeout(function(){b.textContent='复制'},1800)}
+    function select(){var r=document.createRange();r.selectNodeContents(pre);var s=window.getSelection();s.removeAllRanges();s.addRange(r);done(false)}
+    try{navigator.clipboard.writeText(text).then(function(){done(true)},select)}catch(e){select()}
+  });
+});
+(function(){
+  // 勾选进度：在线版用 db 共享（checklist/<项id>，每项一个文档，两台手机各写各的项不互相覆盖）；
+  // 拿不到 db（本地文件、未登录）就退回本机 localStorage。
+  var KEY='winter-job-checklist-v1', boxes=[].slice.call(document.querySelectorAll('#checklist input[type=checkbox]'));
+  if(!boxes.length)return;
+  var state={}, db=null, readOnly=false, statusEl=document.getElementById('ck-status');
+  function local(){try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){state={}}}
+  function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  function status(text,cls){statusEl.textContent=text;statusEl.className='ck-status '+(cls||'')}
+  function render(){
+    var n=0;
+    boxes.forEach(function(b){b.checked=!!state[b.dataset.id];b.disabled=readOnly;if(b.checked)n++});
+    document.getElementById('ck-count').textContent=n+' / '+boxes.length;
+    document.getElementById('ck-fill').style.width=(100*n/boxes.length)+'%';
+    document.getElementById('ck-reset').hidden=readOnly;
+    document.querySelectorAll('#checklist .ck-group').forEach(function(g){
+      var bs=g.querySelectorAll('input'),k=0;bs.forEach(function(b){if(b.checked)k++});
+      var el=g.querySelector('.ck-g');el.textContent=k+'/'+bs.length;el.classList.toggle('done',k===bs.length);
+    });
+  }
+  function goReadOnly(){readOnly=true;status('只能查看：要一起勾选，请让手册主人把你设为编辑者','warn');render()}
+  // 每项一次只写一个：同一项连点时只发最后的状态
+  var busy={}, pending={};
+  function write(id){
+    if(busy[id]){pending[id]=true;return}
+    busy[id]=true;
+    db.doc('checklist/'+id).set({done:!!state[id],at:Date.now()}).then(function(){
+      status('已同步 · 两台手机共享','ok');
+    },function(e){
+      if(e&&(e.code==='invalid_argument'||e.code==='transform_error'))goReadOnly();
+      else status('这一下没存上，网络恢复后再点一次','warn');
+    }).then(function(){busy[id]=false;if(pending[id]){pending[id]=false;write(id)}});
+  }
+  boxes.forEach(function(b){b.addEventListener('change',function(){
+    if(b.checked)state[b.dataset.id]=1;else delete state[b.dataset.id];
+    render();
+    if(db)write(b.dataset.id);else saveLocal();
+  })});
+  document.getElementById('ck-reset').addEventListener('click',function(){
+    if(!confirm(db?'清空全部勾选？两台手机都会清空。':'清空全部勾选？'))return;
+    var ids=Object.keys(state);state={};render();
+    if(db)ids.forEach(write);else saveLocal();
+  });
+  // 不登录的共享：把 37 项勾选压成一个短码放进链接 #ck=1.<base36>，对方打开后合并
+  var VER='1';
+  function encode(){var n=0n;boxes.forEach(function(b,i){if(state[b.dataset.id])n|=1n<<BigInt(i)});return VER+'.'+n.toString(36)}
+  function decode(code){
+    var m=/^1\.([0-9a-z]{1,40})$/.exec(code||'');if(!m)return null;
+    var n=0n;for(var i=0;i<m[1].length;i++)n=n*36n+BigInt(parseInt(m[1][i],36));
+    var s={};boxes.forEach(function(b,i){if((n>>BigInt(i))&1n)s[b.dataset.id]=1});return s;
+  }
+  function applyAll(next){
+    var changed=boxes.map(function(b){return b.dataset.id}).filter(function(id){return !!state[id]!==!!next[id]});
+    state=next;render();
+    if(db)changed.forEach(write);else saveLocal();
+  }
+  var incoming=null, im=/[#&]ck=([0-9a-z.]+)/.exec(location.hash);
+  if(im)incoming=decode(im[1]);
+  function clearHash(){try{history.replaceState(null,'',location.pathname+location.search+'#checklist')}catch(e){}}
+  function showImport(){
+    if(!incoming)return;
+    var k=Object.keys(incoming).length;
+    document.getElementById('ck-import-msg').textContent='收到对方的进度：已勾 '+k+' 项。合并 = 两边勾过的都算勾上。';
+    document.getElementById('ck-import').hidden=readOnly;
+    setTimeout(function(){document.getElementById('checklist').scrollIntoView()},0);
+  }
+  function closeImport(){document.getElementById('ck-import').hidden=true;incoming=null;clearHash()}
+  document.getElementById('ck-merge').addEventListener('click',function(){var s={};Object.keys(state).concat(Object.keys(incoming)).forEach(function(id){s[id]=1});applyAll(s);closeImport();status('已合并对方的进度','ok')});
+  document.getElementById('ck-replace').addEventListener('click',function(){applyAll(incoming);closeImport();status('已换成对方的进度','ok')});
+  document.getElementById('ck-ignore').addEventListener('click',closeImport);
+  document.getElementById('ck-link').addEventListener('click',function(){
+    var msg=document.getElementById('ck-share-msg');
+    var url=location.href.split('#')[0]+'#ck='+encode();
+    var text='到岗清单进度：已勾 '+Object.keys(state).length+' / '+boxes.length+' 项，点开选「合并」';
+    function copied(){msg.textContent='链接已复制，粘贴到微信发给对方'}
+    function manual(){window.prompt('复制这个链接发给对方：',url);msg.textContent=''}
+    if(navigator.share){navigator.share({title:'到岗清单进度',text:text,url:url}).then(function(){msg.textContent='已发出'},function(){})}
+    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text+'\n'+url).then(copied,manual)}
+    else manual();
+  });
+  local();render();status('本机保存 · 用「发进度链接」同步给对方');showImport();
+  window.addEventListener('hashchange',function(){var m=/[#&]ck=([0-9a-z.]+)/.exec(location.hash);if(m&&(incoming=decode(m[1])))showImport()});
+  if(window.claude&&claude.use){
+    claude.use('user').then(function(u){
+      if(u&&u.can){var c=u.can('data.write');if(c&&c.then)c.then(function(v){if(v===false)goReadOnly()});else if(c===false)goReadOnly()}
+    },function(){});
+    claude.use('db').then(function(d){
+      if(!d)return;
+      db=d;state={};render();status('正在连接共享进度…');document.getElementById('ck-sharebox').hidden=true;
+      db.collection('checklist').onSnapshot(function(snap){
+        var s={};snap.docs.forEach(function(doc){var v=doc.data();if(v&&v.done)s[doc.id]=1});
+        state=s;render();
+        if(!readOnly)status(snap.metadata.fromCache?'正在同步…':'已同步 · 两台手机共享','ok');
+      },function(){db=null;local();render();status('共享连接断开，暂时只存本机','warn')});
+    },function(){});
+  }
+})();
+</script>
+
+</body>
+</html>
